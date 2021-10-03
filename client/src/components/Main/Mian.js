@@ -10,7 +10,7 @@ const Main = (props) => {
     };
 
     return (
-        <main className="d-flex flex-wrap">
+        <main className="col-md-6 col-lg-4">
             {ctx.posts.map(p => {
                 return <Post key={p.id} onViewPost={viewPostHandler} post={p} />
             })}

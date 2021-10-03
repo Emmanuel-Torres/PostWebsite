@@ -29,6 +29,10 @@ export const PostContextProvider = (props) => {
         setPosts(prev => {
             return [...tempPosts]
         });
+
+        if (editedPost.id === currentPost.id) {
+            setCurrentPost(editedPost);
+        }
     };
 
     const deletePostHandler = (postId) => {

@@ -93,7 +93,8 @@ const PostForm = (props) => {
             <label className='' htmlFor='content'>Content</label><br />
             <input type='textarea' name='content' value={formState.content} onChange={contentChangedHandler} />
             <br />
-            <button type='submit'>Submit</button>
+            <button className='btn btn-outline-primary mx-2' type='submit'>Submit</button>
+            <button className='btn btn-outline-danger mx-2' type="button" onClick={props.onCancel}>Cancel</button>
         </form>
     );
 };

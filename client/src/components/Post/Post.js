@@ -8,7 +8,7 @@ const Post = (props) => {
     };
 
     return (
-        <div className={`${styles["card-width"]} card m-2`}>
+        <div className='width-100 card m-2'>
             <div className="card-header">
                 {props.post.author}
             </div>
