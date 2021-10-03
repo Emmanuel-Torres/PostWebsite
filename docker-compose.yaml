@@ -5,3 +5,8 @@ services:
     build: ./server
     ports:
       - "5000:3000" 
+
+  client:
+    build: ./client
+    ports:
+      - "5001:3000"
