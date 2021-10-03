@@ -1,23 +1,19 @@
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useContext } from 'react';
+import Aside from './components/Aside/Aside';
+import Main from './components/Main/Mian';
+import NavBar from './components/NavBar/NavBar';
+import PostContext from './context/post-context';
 
 function App() {
+  const ctx = useContext(PostContext);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <NavBar />
+      <Main />
+      { ctx.currentPost != null && <Aside />}
+    </>
   );
 }
 

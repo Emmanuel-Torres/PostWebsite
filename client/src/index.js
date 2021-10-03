@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
+import { PostContextProvider } from './context/post-context';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <PostContextProvider>
+      <App />
+    </PostContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
