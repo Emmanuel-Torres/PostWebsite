@@ -26,10 +26,11 @@ const Aside = () => {
     };
 
     return (
-        <aside className="col-md-6 col-lg-8">
+        <aside>
             {ctx.currentPost!= null && (isEditing
                 ?
                 <>
+                    <h2>Edit Post</h2>
                     <PostForm post={ctx.currentPost} onSubmit={submitFormHandler} onCancel={toggleEdit} />
                 </>
                 :

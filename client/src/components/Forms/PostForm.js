@@ -77,24 +77,28 @@ const PostForm = (props) => {
                 content: formState.content,
                 date: formState.date
             });
+
+            dispatchForm({ type: types.FORM_SUBMITTED });
         }
     };
 
     return (
         <form className='' onSubmit={submitFormHandler}>
-            <label className='' htmlFor="title">Title</label><br />
-            <input type='text' name='title' value={formState.title} onChange={titleChangedHandler} />
-            <br />
+            <div className='mb-3'>
+                <label className='form-label' htmlFor="title">Title</label>
+                <input className='form-control' type='text' name='title' value={formState.title} onChange={titleChangedHandler} />
+            </div>
+            <div className='mb-3'>
+                <label className='form-label' htmlFor="author">Author</label>
+                <input className='form-control' type='text' name='author' value={formState.author} onChange={authorChangedHandler} />
+            </div>
+            <div className='mb-3'>
+                <label className='form-label' htmlFor='content'>Content</label>
+                <textarea className='form-control' name='content' value={formState.content} onChange={contentChangedHandler} />
+            </div>
 
-            <label className='' htmlFor="author">Author</label><br />
-            <input type='text' name='author' value={formState.author} onChange={authorChangedHandler} />
-            <br />
-
-            <label className='' htmlFor='content'>Content</label><br />
-            <input type='textarea' name='content' value={formState.content} onChange={contentChangedHandler} />
-            <br />
-            <button className='btn btn-outline-primary mx-2' type='submit'>Submit</button>
-            <button className='btn btn-outline-danger mx-2' type="button" onClick={props.onCancel}>Cancel</button>
+            <button className='btn btn-primary mx-2' type='submit'>Submit</button>
+            <button className='btn btn-danger mx-2' type="button" onClick={props.onCancel}>Cancel</button>
         </form>
     );
 };
