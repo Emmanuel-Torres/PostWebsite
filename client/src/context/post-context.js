@@ -32,13 +32,12 @@ export const PostContextProvider = (props) => {
 
     const addPostHandler = async (newPost) => {
         const tempPost = { id: Math.floor(Math.random() * (100000 - 10) ) + 10, ...newPost, date: new Date() };
-        // setPosts(prev => {
-        //     return [...prev, newPost];
-        // });
 
         try {
             const res = await axios.post(serverUrl + '/addpost', tempPost);
             console.log(res);
+
+            await fetchPostsHandler();
         }
         catch (err) {
             console.error(err);
