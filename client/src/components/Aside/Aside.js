@@ -6,8 +6,6 @@ import MasterDetailsView from "./MasterDetailsView";
 const Aside = () => {
     const ctx = useContext(PostContext);
 
-    console.log(ctx.currentPost);
-
     const [isEditing, setIsEditing] = useState(false);
 
     const toggleEdit = () => {

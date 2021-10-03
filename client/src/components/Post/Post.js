@@ -3,7 +3,6 @@ import styles from "./Post.module.css"
 
 const Post = (props) => {
     const viewPostHandler = () => {
-        console.log(props.post.id);
         props.onViewPost(props.post.id);
     };
 

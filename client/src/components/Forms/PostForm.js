@@ -50,10 +50,10 @@ const PostForm = (props) => {
     }, [isTitleValid, isAuthorValid]);
 
     useEffect(() => {
-        if (props.post != undefined) {
+        if (props.post !== undefined) {
             dispatchForm({ type: types.INITIAL_POST_GIVEN, val: props.post });
         }
-    }, [])
+    }, [props.post])
 
     const titleChangedHandler = (event) => {
         dispatchForm({ type: types.POST_TITLE_CHANGED, val: event.target.value })
