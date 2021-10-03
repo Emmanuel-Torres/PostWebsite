@@ -16,7 +16,7 @@ export const PostContextProvider = (props) => {
     const [currentPost, setCurrentPost] = useState(null);
 
     const addPostHandler = (newPost) => {
-        newPost = {id: Math.random(), ...newPost};
+        newPost = {id: Math.random(), ...newPost, date: new Date()};
         setPosts(prev => {
             return [...prev, newPost];
         });
