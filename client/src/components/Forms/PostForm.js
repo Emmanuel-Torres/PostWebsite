@@ -9,7 +9,7 @@ const types = {
 }
 
 const initialState = {
-    id: -1,
+    id: '-1',
     title: '',
     isTitleValid: false,
     author: '',

@@ -44,7 +44,7 @@ app.get('/posts', (req, res) => {
 });
 
 app.post('/addPost', (req, res) => {
-    const obj = { id: Math.random(), ...req.body };
+    const obj = { ...req.body, id: Math.floor(Math.random() * (100000 - 10) ) + 10, date: new Date() };
     samplePosts.push(obj);
     res.send(req.body);
 });

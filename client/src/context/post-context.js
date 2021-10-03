@@ -30,11 +30,19 @@ export const PostContextProvider = (props) => {
         fetchPostsHandler();
     }, [])
 
-    const addPostHandler = (newPost) => {
-        newPost = { id: Math.random(), ...newPost, date: new Date() };
-        setPosts(prev => {
-            return [...prev, newPost];
-        });
+    const addPostHandler = async (newPost) => {
+        const tempPost = { id: Math.floor(Math.random() * (100000 - 10) ) + 10, ...newPost, date: new Date() };
+        // setPosts(prev => {
+        //     return [...prev, newPost];
+        // });
+
+        try {
+            const res = await axios.post(serverUrl + '/addpost', tempPost);
+            console.log(res);
+        }
+        catch (err) {
+            console.error(err);
+        }
     };
 
     const editPostHandler = (editedPost) => {
