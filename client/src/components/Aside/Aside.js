@@ -25,6 +25,10 @@ const Aside = () => {
         ctx.onChangeCurrPost(null)
     };
 
+    const deletePostHandler = () => {
+        ctx.onDeletePost(ctx.currentPost.id)
+    };
+
     return (
         <aside>
             {ctx.currentPost!= null && (isEditing
@@ -37,7 +41,8 @@ const Aside = () => {
                 <>
                     <MasterDetailsView post={ctx.currentPost} />
                     <button className="btn btn-outline-primary mx-2" type="button" onClick={toggleEdit}>Edit</button>
-                    <button className="btn btn-outline-danger mx-2" type='button' onClick={closeDetailsHandler}>Close</button>
+                    <button className="btn btn-outline-primary mx-2" type='button' onClick={closeDetailsHandler}>Close</button>
+                    <button className="btn btn-outline-danger mx-2" type='button' onClick={deletePostHandler}>Delete</button>
                 </>
             )}
         </aside>

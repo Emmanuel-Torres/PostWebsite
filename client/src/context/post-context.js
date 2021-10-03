@@ -16,7 +16,7 @@ export const PostContextProvider = (props) => {
     const [currentPost, setCurrentPost] = useState(null);
 
     const addPostHandler = (newPost) => {
-        newPost = {id: Math.random(), ...newPost, date: new Date()};
+        newPost = { id: Math.random(), ...newPost, date: new Date() };
         setPosts(prev => {
             return [...prev, newPost];
         });
@@ -37,8 +37,14 @@ export const PostContextProvider = (props) => {
 
     const deletePostHandler = (postId) => {
         const index = posts.findIndex(p => p.id === postId);
-        const tempPosts = posts.splice(index, 1);
-        setPosts(tempPosts);
+        const tempPosts = posts.filter(p => p.id != postId);
+        setPosts(prev => {
+            return [...tempPosts];
+        });
+
+        if (postId === currentPost.id) {
+            setCurrentPost(null);
+        };
     };
 
     const changeCurrPostHandler = (postId) => {
