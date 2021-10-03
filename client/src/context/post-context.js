@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios'
 import { posts as samplePosts } from "./posts"
 
 const PostContext = React.createContext({
@@ -11,9 +12,23 @@ const PostContext = React.createContext({
     // onFetchPosts: () => { }
 });
 
+const serverUrl = "http://localhost:5000"
+
 export const PostContextProvider = (props) => {
-    const [posts, setPosts] = useState(samplePosts);
+    const [posts, setPosts] = useState([]);
     const [currentPost, setCurrentPost] = useState(null);
+
+    const fetchPostsHandler = async () => {
+        const res = await axios.get(serverUrl + '/posts');
+        const transform = res.data.map(p => {
+            return { ...p, date: new Date(p.date)}
+        })
+        setPosts(transform);
+    };
+
+    useEffect(() => {
+        fetchPostsHandler();
+    }, [])
 
     const addPostHandler = (newPost) => {
         newPost = { id: Math.random(), ...newPost, date: new Date() };
