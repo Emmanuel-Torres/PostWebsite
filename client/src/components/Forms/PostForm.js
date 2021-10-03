@@ -1,15 +1,15 @@
-import { useContext, useEffect, useReducer, useState } from 'react'
-import PostContext from '../../context/post-context';
-import styles from './PostForm.module.css'
+import { useEffect, useReducer, useState } from 'react'
 
 const types = {
     POST_TITLE_CHANGED: "FORM_TITLE_CHANGED",
     POST_AUTHOR_CHANGED: "FORM_COURSE_CHANGED",
     POST_CONTENT_CHANGED: "FORM_DUE_DATE_CHANGED",
+    INITIAL_POST_GIVEN: "INITIAL_POST_GIVEN",
     FORM_SUBMITTED: "FORM_SUBMITTED",
 }
 
 const initialState = {
+    id: -1,
     title: '',
     isTitleValid: false,
     author: '',
@@ -19,6 +19,9 @@ const initialState = {
 }
 
 const formReduce = (state, action) => {
+    if (action.type === types.INITIAL_POST_GIVEN) {
+        return { ...state, ...(action.val), isTitleValid: true, isAuthorValid: true }
+    };
     if (action.type === types.POST_TITLE_CHANGED) {
         return { ...state, title: action.val, isTitleValid: action.val.trim().length > 0 }
     };
@@ -28,7 +31,6 @@ const formReduce = (state, action) => {
     if (action.type === types.POST_CONTENT_CHANGED) {
         return { ...state, content: action.val }
     };
-
     if (action.type === types.FORM_SUBMITTED) {
         return initialState;
     }
@@ -36,9 +38,7 @@ const formReduce = (state, action) => {
     return initialState;
 };
 
-const PostForm = () => {
-    const ctx = useContext(PostContext)
-
+const PostForm = (props) => {
     const [formState, dispatchForm] = useReducer(formReduce, initialState);
     const [isFormValid, setIsFormValid] = useState(false);
 
@@ -49,20 +49,11 @@ const PostForm = () => {
         setIsFormValid(isTitleValid && isAuthorValid);
     }, [isTitleValid, isAuthorValid]);
 
-
-    const submitPostHandler = (event) => {
-        event.preventDefault();
-
-        if (isFormValid) {
-            ctx.onAddPost({
-                title: formState.title,
-                author: formState.author,
-                content: formState.content
-            });
-
-            dispatchForm({ type: types.FORM_SUBMITTED })
+    useEffect(() => {
+        if (props.post != undefined) {
+            dispatchForm({ type: types.INITIAL_POST_GIVEN, val: props.post });
         }
-    };
+    }, [])
 
     const titleChangedHandler = (event) => {
         dispatchForm({ type: types.POST_TITLE_CHANGED, val: event.target.value })
@@ -76,8 +67,21 @@ const PostForm = () => {
         dispatchForm({ type: types.POST_CONTENT_CHANGED, val: event.target.value })
     }
 
+    const submitFormHandler = (event) => {
+        event.preventDefault();
+        if (isFormValid) {
+            props.onSubmit({
+                id: formState.id,
+                title: formState.title,
+                author: formState.author,
+                content: formState.content,
+                date: formState.date
+            });
+        }
+    };
+
     return (
-        <form className='' onSubmit={submitPostHandler}>
+        <form className='' onSubmit={submitFormHandler}>
             <label className='' htmlFor="title">Title</label><br />
             <input type='text' name='title' value={formState.title} onChange={titleChangedHandler} />
             <br />

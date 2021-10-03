@@ -23,10 +23,12 @@ export const PostContextProvider = (props) => {
     };
 
     const editPostHandler = (editedPost) => {
-        const index = posts.findIndex(p => p.id === editedPost);
-        const tempPosts = currentPost;
+        const index = posts.findIndex(p => p.id === editedPost.id);
+        const tempPosts = posts;
         tempPosts[index] = editedPost;
-        setPosts(tempPosts);
+        setPosts(prev => {
+            return [...tempPosts]
+        });
     };
 
     const deletePostHandler = (postId) => {
