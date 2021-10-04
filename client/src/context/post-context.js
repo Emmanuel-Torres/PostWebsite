@@ -35,7 +35,7 @@ export const PostContextProvider = (props) => {
 
         try {
             const res = await axios.post(serverUrl + '/addpost', tempPost);
-            console.log(res);
+            console.log(res.status);
 
             await fetchPostsHandler();
         }
@@ -44,13 +44,16 @@ export const PostContextProvider = (props) => {
         }
     };
 
-    const editPostHandler = (editedPost) => {
-        const index = posts.findIndex(p => p.id === editedPost.id);
-        const tempPosts = posts;
-        tempPosts[index] = editedPost;
-        setPosts(prev => {
-            return [...tempPosts]
-        });
+    const editPostHandler = async (editedPost) => {
+        try {
+            const res = await axios.post(serverUrl + '/updatePost', editedPost);
+            console.log(res.status);
+
+            await fetchPostsHandler();
+        }
+        catch (err) {
+            console.error(err);
+        }
 
         if (editedPost.id === currentPost.id) {
             setCurrentPost(editedPost);
