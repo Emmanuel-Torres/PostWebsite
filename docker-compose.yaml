@@ -5,8 +5,27 @@ services:
     build: ./server
     ports:
       - "5000:3000" 
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_PASSWORD: password
+      DB_USER: postgress
+    depends_on:
+      - db
 
   client:
     build: ./client
     ports:
       - "5001:3000"
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./server/init.sql:/docker-entrypoint-intidb.d/init.sql
+
+volumes:
+  db:

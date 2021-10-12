@@ -1,5 +1,4 @@
 const express = require('express');
-const cors = require('cors')
 const app = express();
 const config = {
     name: 'sample-express-app',
@@ -9,8 +8,8 @@ const config = {
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
-app.use(cors())
 
+console.log(process.env.DB_HOST)
 const samplePosts = [
     {
         id: 1,
