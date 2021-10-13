@@ -26,8 +26,8 @@ services:
     environment:
       POSTGRES_PASSWORD: password
     volumes:
-      - db:/var/lib/postgresql/data
-      - ./server/init.sql:/docker-entrypoint-intidb.d/init.sql
+      - ./server/sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      # - ./server/sql/fill_tables.sql:/docker-entrypoint-intidb.d/fill_tables.sql
 
-volumes:
-  db:
+# volumes:
+#   db:
