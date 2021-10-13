@@ -1,5 +1,5 @@
 const express = require('express');
-const { getPost } = require('./services/db_services');
+const { getPost, addPost } = require('./services/db_services');
 const app = express();
 
 app.use(express.urlencoded({extended: false}));
@@ -39,9 +39,9 @@ app.get('/posts', (req, res) => {
 });
 
 app.post('/addPost', (req, res) => {
-    const obj = { ...req.body, id: Math.floor(Math.random() * (100000 - 10) ) + 10, date: new Date() };
-    samplePosts.push(obj);
-    res.send(req.body);
+    // const obj = { ...req.body, id: Math.floor(Math.random() * (100000 - 10) ) + 10, date: new Date() };
+    // samplePosts.push(obj);
+    addPost(req.body).then(() => res.send(req.body))
 });
 
 app.post('/updatePost', (req, res) => {

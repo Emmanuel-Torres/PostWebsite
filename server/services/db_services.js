@@ -9,8 +9,10 @@ const pool = new Pool({
 })
 
 module.exports.getPost = async () => {
-    // pool.query('SELECT * FROM post', (err, res) => {
-    //     console.log(res); 
-    // });
-    return await (await pool.query('SELECT * FROM post')).rows
-}
+    return (await pool.query('SELECT * FROM post')).rows
+};
+
+module.exports.addPost = async (post) => {
+    await pool.query('INSERT INTO post (title, author, content, posted_on) VALUES($1, $2, $3, $4)',
+                    [post.title, post.author, post.content, post.posted_on]);
+};
