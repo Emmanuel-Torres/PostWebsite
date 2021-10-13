@@ -11,7 +11,7 @@ services:
       DB_HOST: db
       DB_PORT: 5432
       DB_PASSWORD: password
-      DB_USER: postgress
+      DB_USER: postgres
     depends_on:
       - db
 
@@ -27,7 +27,7 @@ services:
       POSTGRES_PASSWORD: password
     volumes:
       - ./server/sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
-      # - ./server/sql/fill_tables.sql:/docker-entrypoint-intidb.d/fill_tables.sql
+      - ./server/sql/fill_tables.sql:/docker-entrypoint-intidb.d/fill_tables.sql
 
 # volumes:
 #   db:

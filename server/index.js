@@ -1,4 +1,5 @@
 const express = require('express');
+const { getPost } = require('./services/db_services');
 const app = express();
 
 app.use(express.urlencoded({extended: false}));
@@ -34,7 +35,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/posts', (req, res) => {
-    res.send(samplePosts);
+    getPost().then(qry => res.send(qry));
 });
 
 app.post('/addPost', (req, res) => {
