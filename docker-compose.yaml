@@ -5,6 +5,8 @@ services:
     build: ./server
     ports:
       - "5000:3000" 
+    env_file:
+      - ./server/.env
     environment:
       DB_HOST: db
       DB_PORT: 5432

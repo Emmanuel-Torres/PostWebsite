@@ -1,10 +1,5 @@
 const express = require('express');
 const app = express();
-const config = {
-    name: 'sample-express-app',
-    port: 3000,
-    host: '0.0.0.0'
-}
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
@@ -55,6 +50,6 @@ app.post('/updatePost', (req, res) => {
     res.send(200)
 });
 
-app.listen(config.port, config.host, () => {
-    console.log(`${config.name} at ${config.host}:${config.port}`);
+app.listen(process.env.API_PORT, process.env.API_HOST, () => {
+    console.log(`Running at ${process.env.API_HOST}:${process.env.API_PORT}`);
 });
