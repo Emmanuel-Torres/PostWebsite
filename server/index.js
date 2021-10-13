@@ -1,5 +1,5 @@
 const express = require('express');
-const { getPost, addPost } = require('./services/db_services');
+const { getPost, addPost, updatePost } = require('./services/db_services');
 const app = express();
 
 app.use(express.urlencoded({extended: false}));
@@ -39,16 +39,15 @@ app.get('/posts', (req, res) => {
 });
 
 app.post('/addPost', (req, res) => {
-    // const obj = { ...req.body, id: Math.floor(Math.random() * (100000 - 10) ) + 10, date: new Date() };
-    // samplePosts.push(obj);
     addPost(req.body).then(() => res.send(req.body))
 });
 
 app.post('/updatePost', (req, res) => {
-    const obj = req.body;
-    const index = samplePosts.findIndex(p => p.id === obj.id);
-    samplePosts[index] = obj;
-    res.send(200)
+    // const obj = req.body;
+    // const index = samplePosts.findIndex(p => p.id === obj.id);
+    // samplePosts[index] = obj;
+    // res.send(200)
+    updatePost(req.body).then(() => res.send(req.body)).catch(err => res.send(err))
 });
 
 app.listen(process.env.API_PORT, process.env.API_HOST, () => {

@@ -13,6 +13,17 @@ module.exports.getPost = async () => {
 };
 
 module.exports.addPost = async (post) => {
-    await pool.query('INSERT INTO post (title, author, content, posted_on) VALUES($1, $2, $3, $4)',
-                    [post.title, post.author, post.content, post.posted_on]);
+    //some form of data validation I guess ¯\_(ツ)_/¯
+    await pool.query(`INSERT INTO post (title, author, content, posted_on) 
+                      VALUES($1, $2, $3, $4)`,
+                      [post.title, post.author, post.content, post.posted_on]);
+};
+
+module.exports.updatePost = async (post) => {
+    await pool.query(`UPDATE post
+                      SET title = $1,
+                          author = $2,
+                          content = $3
+                      WHERE post_id = $4`,
+                      [post.title, post.author, post.content, post.post_id])
 };
