@@ -27,3 +27,7 @@ module.exports.updatePost = async (post) => {
                       WHERE post_id = $4`,
                       [post.title, post.author, post.content, post.post_id])
 };
+
+module.exports.deletePost = async (postId) => {
+    await pool.query('DELETE FROM post WHERE post_id = $1', [postId]);
+}
