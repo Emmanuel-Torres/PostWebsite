@@ -12,14 +12,17 @@ const PostContext = React.createContext({
     // onFetchPosts: () => { }
 });
 
-const serverUrl = "http://localhost:5000"
+const getPostsUrl = "posts";
+const addPostUrl = "addPost";
+const updatePostUrl = "updatePost";
+
 
 export const PostContextProvider = (props) => {
     const [posts, setPosts] = useState([]);
     const [currentPost, setCurrentPost] = useState(null);
 
     const fetchPostsHandler = async () => {
-        const res = await axios.get(serverUrl + '/posts');
+        const res = await axios.get(getPostsUrl);
         const transform = res.data.map(p => {
             return { ...p, date: new Date(p.date)}
         })
@@ -31,10 +34,10 @@ export const PostContextProvider = (props) => {
     }, [])
 
     const addPostHandler = async (newPost) => {
-        const tempPost = { id: Math.floor(Math.random() * (100000 - 10) ) + 10, ...newPost, date: new Date() };
+        const tempPost = { ...newPost, posted_on: new Date() };
 
         try {
-            const res = await axios.post(serverUrl + '/addpost', tempPost);
+            const res = await axios.post(addPostUrl, tempPost);
             console.log(res.status);
 
             await fetchPostsHandler();
@@ -46,7 +49,7 @@ export const PostContextProvider = (props) => {
 
     const editPostHandler = async (editedPost) => {
         try {
-            const res = await axios.post(serverUrl + '/updatePost', editedPost);
+            const res = await axios.post(updatePostUrl, editedPost);
             console.log(res.status);
 
             await fetchPostsHandler();
@@ -61,15 +64,15 @@ export const PostContextProvider = (props) => {
     };
 
     const deletePostHandler = (postId) => {
-        const index = posts.findIndex(p => p.id === postId);
-        const tempPosts = posts.filter(p => p.id != postId);
-        setPosts(prev => {
-            return [...tempPosts];
-        });
+        // const index = posts.findIndex(p => p.id === postId);
+        // const tempPosts = posts.filter(p => p.id != postId);
+        // setPosts(prev => {
+        //     return [...tempPosts];
+        // });
 
-        if (postId === currentPost.id) {
-            setCurrentPost(null);
-        };
+        // if (postId === currentPost.id) {
+        //     setCurrentPost(null);
+        // };
     };
 
     const changeCurrPostHandler = (postId) => {
