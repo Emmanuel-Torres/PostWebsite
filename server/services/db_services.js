@@ -19,13 +19,13 @@ module.exports.addPost = async (post) => {
                       [post.title, post.author, post.content, post.posted_on]);
 };
 
-module.exports.updatePost = async (post) => {
+module.exports.updatePost = async (postId, post) => {
     await pool.query(`UPDATE post
                       SET title = $1,
                           author = $2,
                           content = $3
                       WHERE post_id = $4`,
-                      [post.title, post.author, post.content, post.post_id])
+                      [post.title, post.author, post.content, postId])
 };
 
 module.exports.deletePost = async (postId) => {

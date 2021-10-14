@@ -19,8 +19,9 @@ app.post('/addPost', (req, res) => {
     addPost(req.body).then(() => res.send(req.body)).catch(err => res.send(err))
 });
 
-app.post('/updatePost', (req, res) => {
-    updatePost(req.body).then(() => res.send(req.body)).catch(err => res.send(err))
+app.put('/updatePost/:postid', (req, res) => {
+    const postId = req.params.postid;
+    updatePost(postId, req.body).then(() => res.send(req.body)).catch(err => res.send(err))
 });
 
 app.delete('/deletepost/:postid', (req, res) => {
