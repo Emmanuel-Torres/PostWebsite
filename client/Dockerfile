@@ -1,7 +1,11 @@
-FROM node:11-alpine
+FROM node:11-alpine AS client_build
 WORKDIR /usr/src/app
-COPY . .
+COPY package.json .
+COPY package-lock.json .
 RUN npm install
-RUN npm install bootstrap
-EXPOSE 3000
-CMD ["npm", "run", "start"]
+COPY . .
+RUN npm run build
+
+FROM nginx AS nginx_build
+COPY --from=client_build /usr/src/app/build /usr/share/nginx/html
+EXPOSE 80

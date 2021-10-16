@@ -12,9 +12,9 @@ const PostContext = React.createContext({
     // onFetchPosts: () => { }
 });
 
-const getPostsUrl = "posts";
-const addPostUrl = "addPost";
-const updatePostUrl = "updatePost";
+const getPostsUrl = "/api/posts";
+const addPostUrl = "/api/addPost";
+const updatePostUrl = "/api/updatePost";
 
 
 export const PostContextProvider = (props) => {

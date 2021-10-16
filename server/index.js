@@ -7,15 +7,15 @@ app.use(express.json());
 
 console.log(process.env.DB_HOST)
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
     res.send('Hello World!');
 });
 
-app.get('/posts', (req, res) => {
+app.get('/api/posts', (req, res) => {
     getPost().then(qry => res.send(qry));
 });
 
-app.post('/addPost', (req, res) => {
+app.post('/api/addPost', (req, res) => {
     if (req.body.post.title == undefined || req.body.post.title.trim() < 1) {
         res.send(400);
         return;
@@ -23,7 +23,7 @@ app.post('/addPost', (req, res) => {
     addPost(req.body).then(() => res.send(200)).catch(err => res.send(500))
 });
 
-app.put('/updatePost/:postid', (req, res) => {
+app.put('/api/updatePost/:postid', (req, res) => {
     if (req.body.post.title == undefined || req.body.post.title.trim() < 1) {
         res.send(400);
         return;
@@ -32,16 +32,16 @@ app.put('/updatePost/:postid', (req, res) => {
     updatePost(postId, req.body.post).then(() => res.send(req.body.post)).catch(err => res.send(500));
 });
 
-app.delete('/deletepost/:postid', (req, res) => {
+app.delete('/api/deletepost/:postid', (req, res) => {
     const postId = req.params.postid;
     deletePost(postId).then(() => res.send(200)).catch(err => res.send(err));
 });
 
-app.get('/comments', (req, res) => {
+app.get('/api/comments', (req, res) => {
     getComments().then(coms => res.send(coms)).catch(err => res.send(500))
 });
 
-app.post('/addComment', (req, res) => {
+app.post('/api/addComment', (req, res) => {
     if (req.body.comment.content == undefined || req.body.comment.content.trim() < 1) {
         res.send(400);
         return;
@@ -49,7 +49,7 @@ app.post('/addComment', (req, res) => {
     addComment(req.body.comment).then(() => res.send(req.body.comment)).catch(err => res.send(500));
 });
 
-app.put('/updateComment/:commentid', (req, res) => {
+app.put('/api/updateComment/:commentid', (req, res) => {
     if (req.body.comment.content == undefined || req.body.comment.trim() < 1) {
         res.send(400);
         return;
@@ -58,7 +58,7 @@ app.put('/updateComment/:commentid', (req, res) => {
     updateComment(commentId, req.body.comment).then(() => res.send(200)).catch(err => res.send(500));
 });
 
-app.delete('/deleteComment/:commentid', (req, res) => {
+app.delete('/api/deleteComment/:commentid', (req, res) => {
     const commentId = req.params.commentid;
     deleteComment(commntId);
 });
