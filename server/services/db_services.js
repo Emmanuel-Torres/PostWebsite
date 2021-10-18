@@ -8,8 +8,12 @@ const pool = new Pool({
     port: process.env.DB_PORT
 })
 
-module.exports.getPost = async () => {
+module.exports.getPosts = async () => {
     return (await pool.query('SELECT * FROM post')).rows;
+};
+
+module.exports.getPostById = async (postId) => {
+    return (await pool.query('SELECT * FROM post WHERE post_id = $1', [postId])).rows;
 };
 
 module.exports.addPost = async (post) => {
@@ -35,6 +39,10 @@ module.exports.deletePost = async (postId) => {
 module.exports.getComments = async () => {
     return (await pool.query('SELECT * FROM comment')).rows;
 };
+
+module.exports.getCommentsByPost = async (postId) => {
+    return (await pool.query('SELECT * FROM comment WHERE post_id = $1', [postId])).rows;
+}
 
 module.exports.addComment = async (postId, comment) => {
     await pool.query(`INSERT INTO comment (post_id, content, author, posted_on)
