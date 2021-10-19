@@ -7,7 +7,7 @@ const NavBar = (props) => {
                 <img src={logo} width="30" height="30" className="d-inline-block align-top" alt="" />
                 El Rincon del Blog
             </a>
-            <button className='btn btn-success m-2' type="button" onClick={props.onAddPost}>Add Post</button>
+            <button className='btn btn-success m-2' type="button" data-bs-toggle="modal" data-bs-target="#modal">Add Post</button>
         </nav>
     )
 }

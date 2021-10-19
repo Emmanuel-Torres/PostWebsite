@@ -33,6 +33,9 @@ const postsSlice = createSlice({
     reducers: {
         setCurrentPost(state, action) {
             state.currentPost = action.payload;
+        },
+        clearCurrentPost(state, action) {
+            state.currentPost = null;
         }
     },
     extraReducers: (builder) => {
@@ -49,5 +52,5 @@ const postsSlice = createSlice({
     }
 });
 
-export const { setCurrentPost } = postsSlice.actions;
+export const { setCurrentPost, clearCurrentPost } = postsSlice.actions;
 export default postsSlice;

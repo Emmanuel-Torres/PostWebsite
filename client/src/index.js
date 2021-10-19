@@ -5,8 +5,9 @@ import { PostContextProvider } from './context/post-context';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux'
 import store from './store/index';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import 'bootstrap/scss/bootstrap.scss'
+import '@popperjs/core'
+import 'bootstrap/dist/js/bootstrap.js'
 
 ReactDOM.render(
   <React.StrictMode>
