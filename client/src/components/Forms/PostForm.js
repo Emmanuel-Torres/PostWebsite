@@ -1,98 +1,77 @@
-import { useEffect, useReducer, useState } from 'react'
-
-const types = {
-    POST_TITLE_CHANGED: "FORM_TITLE_CHANGED",
-    POST_AUTHOR_CHANGED: "FORM_COURSE_CHANGED",
-    POST_CONTENT_CHANGED: "FORM_DUE_DATE_CHANGED",
-    INITIAL_POST_GIVEN: "INITIAL_POST_GIVEN",
-    FORM_SUBMITTED: "FORM_SUBMITTED",
-}
-
-const initialState = {
-    id: '-1',
-    title: '',
-    isTitleValid: false,
-    author: '',
-    isAuthorValid: false,
-    content: '',
-}
-
-const formReduce = (state, action) => {
-    if (action.type === types.INITIAL_POST_GIVEN) {
-        return { ...state, ...(action.val), isTitleValid: true, isAuthorValid: true }
-    };
-    if (action.type === types.POST_TITLE_CHANGED) {
-        return { ...state, title: action.val, isTitleValid: action.val.trim().length > 0 }
-    };
-    if (action.type === types.POST_AUTHOR_CHANGED) {
-        return { ...state, author: action.val, isAuthorValid: action.val.trim().length > 0 }
-    };
-    if (action.type === types.POST_CONTENT_CHANGED) {
-        return { ...state, content: action.val }
-    };
-    if (action.type === types.FORM_SUBMITTED) {
-        return initialState;
-    }
-
-    return initialState;
-};
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 
 const PostForm = (props) => {
-    const [formState, dispatchForm] = useReducer(formReduce, initialState);
-    const [isFormValid, setIsFormValid] = useState(false);
+    const dispatch = useDispatch();
 
-    const { isTitleValid } = formState;
-    const { isAuthorValid } = formState;
+    const [title, setTitle] = useState('');
+    const [author, setAuthor] = useState('');
+    const [content, setContent] = useState('');
+    const [isTitleValid, setIsTitleValid] = useState(false);
+    const [isAuthorValid, setIsAuthorValid] = useState(false);
+    const [isTitleTouched, setIstTitleTouched] = useState(false);
+    const [isAuthorTouched, setIsAuthorTouched] = useState(false);
 
-    useEffect(() => {
-        setIsFormValid(isTitleValid && isAuthorValid);
-    }, [isTitleValid, isAuthorValid]);
+    const isFormValid = isTitleValid && isAuthorValid;
+    const isTitleFieldInvalid = !isTitleValid && isTitleTouched;
+    const isAuthorFieldInvalid = !isAuthorValid && isAuthorTouched;
 
     useEffect(() => {
         if (props.post !== undefined) {
-            dispatchForm({ type: types.INITIAL_POST_GIVEN, val: props.post });
+            setTitle(props.post.title);
+            setAuthor(props.post.author);
+            setContent(props.post.content);
+            setIsTitleValid(true);
+            setIsAuthorValid(true);
         }
     }, [props.post])
 
     const titleChangedHandler = (event) => {
-        dispatchForm({ type: types.POST_TITLE_CHANGED, val: event.target.value })
+        setTitle(event.target.value);
+        setIsTitleValid(event.target.value.trim().length > 0);
     };
 
     const authorChangedHandler = (event) => {
-        dispatchForm({ type: types.POST_AUTHOR_CHANGED, val: event.target.value })
+        setAuthor(event.target.value);
+        setIsAuthorValid(event.target.value.trim().length > 0);
     };
 
     const contentChangedHandler = (event) => {
-        dispatchForm({ type: types.POST_CONTENT_CHANGED, val: event.target.value })
+        setContent(event.target.value);
     }
 
     const submitFormHandler = (event) => {
         event.preventDefault();
+        setIsAuthorTouched(true);
+        setIstTitleTouched(true);
+        console.log(isFormValid);
         if (isFormValid) {
             props.onSubmit({
-                id: formState.id,
-                title: formState.title,
-                author: formState.author,
-                content: formState.content,
-            });
-
-            dispatchForm({ type: types.FORM_SUBMITTED });
+                title,
+                author,
+                content
+            })
         }
     };
 
+    const titleClasses = isTitleFieldInvalid ? 'form-control is-invalid text-danger' : 'form-control';
+    const authorClasses = isAuthorFieldInvalid ? 'form-control is-invalid text-danger' : 'form-control';
+
     return (
         <form className='' onSubmit={submitFormHandler}>
-            <div className='mb-3'>
+            <div className="form-floating mb-3">
+                <input className={titleClasses} type='text' name='title' id="title" value={title} placeholder="Sample Title" onChange={titleChangedHandler} onBlur={() => {setIstTitleTouched(true)}}/>
                 <label className='form-label' htmlFor="title">Title</label>
-                <input className='form-control' type='text' name='title' value={formState.title} onChange={titleChangedHandler} />
+                {isTitleFieldInvalid && <p className="text-danger">Title cannot be empty</p>}
             </div>
-            <div className='mb-3'>
+            <div className='form-floating mb-3'>
+                <input className={authorClasses} type='text' name='author' id="author" value={author} placeholder="Sample author" onChange={authorChangedHandler} onBlur={() => {setIsAuthorTouched(true)}}/>
                 <label className='form-label' htmlFor="author">Author</label>
-                <input className='form-control' type='text' name='author' value={formState.author} onChange={authorChangedHandler} />
+                {isAuthorFieldInvalid && <p className="text-danger">Author cannot be empty</p>}
             </div>
-            <div className='mb-3'>
+            <div className='form-floating mb-3'>
+                <textarea className='form-control' name='content' id="content" value={content} placeholder="Sample Content" onChange={contentChangedHandler} />
                 <label className='form-label' htmlFor='content'>Content</label>
-                <textarea className='form-control' name='content' value={formState.content} onChange={contentChangedHandler} />
             </div>
 
             <button className='btn btn-primary mx-2' type='submit'>Submit</button>

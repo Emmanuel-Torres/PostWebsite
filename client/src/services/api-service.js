@@ -20,7 +20,7 @@ const addPost = async (post) => {
 };
 
 const updatePost = async (postId, post) => {
-    await axios.put(postsUrl + '/' + postId, post)
+    await axios.put(postsUrl + '/' + postId, { post })
 };
 
 const deletePost = async (postId) => {

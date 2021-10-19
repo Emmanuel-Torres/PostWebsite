@@ -2,8 +2,8 @@ import logo from "./logo192.png"
 
 const NavBar = (props) => {
     return (
-        <nav className="navbar navbar-light bg-secondary justify-content-between">
-            <a className="navbar-brand mx-2">
+        <nav className="navbar navbar-light bg-dark justify-content-between">
+            <a className="navbar-brand mx-2 text-white">
                 <img src={logo} width="30" height="30" className="d-inline-block align-top" alt="" />
                 El Rincon del Blog
             </a>

@@ -19,6 +19,7 @@ export const addPost = createAsyncThunk(
 export const updatePost = createAsyncThunk(
     'updatePost',
     async (post, thunkAPI) => {
+        console.log(post);
         await apiService.updatePost(post.post_id, post);
         return await apiService.getPosts();
     }
@@ -48,6 +49,7 @@ const postsSlice = createSlice({
             })
             .addCase(updatePost.fulfilled, (state, action) => {
                 state.posts = action.payload;
+                state.currentPost = action.payload.find(p => p.post_id === state.currentPost.post_id);
             })
     }
 });
