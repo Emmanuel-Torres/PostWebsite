@@ -1,24 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import AddPost from './components/AddPost/AddPost';
-import Aside from './components/Aside/Aside';
+import { useEffect } from 'react';
 import PostsContainer from './components/Post/PostsContainer';
 import NavBar from './components/NavBar/NavBar';
 import { getPosts } from './store/posts-slice';
+import PostMasterDetails from './components/PostDetails/MasterDetailsView';
 
 function App() {
   const dispatch = useDispatch();
-
-  const [isAdding, setIsAdding] = useState(false);
+  const currentPost = useSelector(state => state.posts.currentPost);
 
   useEffect(() => {
     dispatch(getPosts())
   }, [dispatch]);
-  
+
   const toggleAdding = () => {
-    setIsAdding(prev => {
-      return !prev;
-    });
   };
 
   return (
@@ -27,10 +22,10 @@ function App() {
       <div className="container-fluid">
         <div className="row">
           <PostsContainer />
-          <div className='col-md-6 col-lg-8 my-2'>
-            <Aside />
-            {isAdding && <AddPost onCancelAddPost={toggleAdding} />}
-          </div>
+          {currentPost && (
+            <div className='col-md-6 col-lg-8 my-2'>
+              <PostMasterDetails post={currentPost} />
+            </div>)}
         </div>
       </div>
     </>

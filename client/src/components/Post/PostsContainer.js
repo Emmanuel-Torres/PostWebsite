@@ -7,11 +7,11 @@ const PostsContainer = () => {
     const dispatch = useDispatch();
 
     return (
-        <main className="col-md-6 col-lg-4">
+        <div className="col">
             {posts.map(p => {
                 return <PostCard key={p.post_id} onViewPost={() => dispatch(setCurrentPost(p))} post={p} />
             })}
-        </main>
+        </div>
     )
 }
 

@@ -12,12 +12,11 @@ const getPosts = async () => {
 
 const getPostById = async (postId) => {
     const res = await axios.get(postsUrl + '/' + postId);
-    return { ...res.data, posted_on: new Date(res.data.posted_on) }
+    return { ...res.data, posted_on: (new Date(res.data.posted_on)).toLocaleDateString() }
 };
 
 const addPost = async (post) => {
-    const newPost = {...post, posted_on: new Date}
-    await axios.post(postsUrl, post);
+    await axios.post(postsUrl, { post: { ...post, posted_on: new Date() } });
 };
 
 const updatePost = async (postId, post) => {
@@ -37,7 +36,7 @@ const getCommentById = async (commentId) => {
 };
 
 const addComment = async (comment) => {
-    await axios.post(commentsUrl, comment);
+    await axios.post(commentsUrl, { comment: { ...comment, posted_on: new Date() } });
 };
 
 const updateComment = async (commentId, comment) => {
