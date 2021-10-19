@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import PostsContainer from './components/Post/PostsContainer';
 import NavBar from './components/NavBar/NavBar';
 import { addPost, getPosts, updatePost } from './store/posts-slice';
-import PostMasterDetails from './components/PostDetails/MasterDetailsView';
+import PostDetails from './components/Post/PostDetails';
 import Modal from './components/UI/Modal';
-import PostForm from './components/Forms/PostForm';
+import PostForm from './components/Post/PostForm';
 
 function App() {
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ function App() {
             <div className="col-lg-8 m-2">
               {isEditing
                 ? <PostForm post={currentPost} onSubmit={updatePostHandler} onCancel={toggleEdit}/>
-                : <PostMasterDetails post={currentPost} onEdit={toggleEdit} />}
+                : <PostDetails post={currentPost} onEdit={toggleEdit} />}
             </div>)}
         </div>
       </div>

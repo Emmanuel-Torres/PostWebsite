@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 import { clearCurrentPost } from '../../store/posts-slice';
 import CommentsContainer from '../Comment/CommentsContainer';
 
-const PostMasterDetails = (props) => {
+const PostDetails = (props) => {
     const dispatch = useDispatch();
     return (
         <div>
@@ -19,4 +19,4 @@ const PostMasterDetails = (props) => {
     )
 };
 
-export default PostMasterDetails;
+export default PostDetails;

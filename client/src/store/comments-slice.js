@@ -8,6 +8,13 @@ export const getCommentsByPostId = createAsyncThunk(
     }
 )
 
+export const addComment = createAsyncThunk(
+    'addComment',
+    async (data, thunkAPI) => {
+        
+    }
+)
+
 const commentsSlice = createSlice({
     name: 'comments',
     initialState: {

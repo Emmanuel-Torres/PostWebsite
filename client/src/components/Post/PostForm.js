@@ -1,17 +1,14 @@
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
 
 const PostForm = (props) => {
-    const dispatch = useDispatch();
-
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [content, setContent] = useState('');
-    const [isTitleValid, setIsTitleValid] = useState(false);
-    const [isAuthorValid, setIsAuthorValid] = useState(false);
     const [isTitleTouched, setIstTitleTouched] = useState(false);
     const [isAuthorTouched, setIsAuthorTouched] = useState(false);
 
+    const isTitleValid = title.trim().length > 0;
+    const isAuthorValid = author.trim().length > 0;
     const isFormValid = isTitleValid && isAuthorValid;
     const isTitleFieldInvalid = !isTitleValid && isTitleTouched;
     const isAuthorFieldInvalid = !isAuthorValid && isAuthorTouched;
@@ -21,19 +18,15 @@ const PostForm = (props) => {
             setTitle(props.post.title);
             setAuthor(props.post.author);
             setContent(props.post.content);
-            setIsTitleValid(true);
-            setIsAuthorValid(true);
         }
     }, [props.post])
 
     const titleChangedHandler = (event) => {
         setTitle(event.target.value);
-        setIsTitleValid(event.target.value.trim().length > 0);
     };
 
     const authorChangedHandler = (event) => {
         setAuthor(event.target.value);
-        setIsAuthorValid(event.target.value.trim().length > 0);
     };
 
     const contentChangedHandler = (event) => {
