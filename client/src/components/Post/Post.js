@@ -14,7 +14,7 @@ const Post = (props) => {
             <div className="card-body">
                 <h5 className="card-title">{props.post.title}</h5>
                 <p className="card-text">{props.post.content.substring(0,80)}...</p>
-                <CustDate date={props.post.date} />
+                <CustDate date={props.post.posted_on} />
                 <button type="button" onClick={viewPostHandler} className="btn btn-primary">explore</button>
             </div>
         </div>

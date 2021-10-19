@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios'
-import { posts as samplePosts } from "./posts"
 
 const PostContext = React.createContext({
     posts: [],
@@ -9,7 +8,6 @@ const PostContext = React.createContext({
     onEditPost: () => { },
     onDeletePost: () => { },
     onChangeCurrPost: () => { },
-    // onFetchPosts: () => { }
 });
 
 const getPostsUrl = "/api/posts";
@@ -24,7 +22,7 @@ export const PostContextProvider = (props) => {
     const fetchPostsHandler = async () => {
         const res = await axios.get(getPostsUrl);
         const transform = res.data.map(p => {
-            return { ...p, date: new Date(p.date)}
+            return { ...p, posted_on: new Date(p.posted_on)}
         })
         setPosts(transform);
     };
@@ -64,30 +62,13 @@ export const PostContextProvider = (props) => {
     };
 
     const deletePostHandler = (postId) => {
-        // const index = posts.findIndex(p => p.id === postId);
-        // const tempPosts = posts.filter(p => p.id != postId);
-        // setPosts(prev => {
-        //     return [...tempPosts];
-        // });
 
-        // if (postId === currentPost.id) {
-        //     setCurrentPost(null);
-        // };
     };
 
     const changeCurrPostHandler = (postId) => {
         const post = posts.find(p => p.id === postId);
         setCurrentPost(post);
     };
-
-    // const fetchPostsHandler = async () => {
-    //     const response = await fetch('http://0.0.0.0:5000/posts');
-
-    //     console.log(response);
-    //     const data = await response.json();
-
-    //     console.log(data);
-    // };
 
     return (
         <PostContext.Provider value={{
@@ -96,8 +77,7 @@ export const PostContextProvider = (props) => {
             onAddPost: addPostHandler,
             onEditPost: editPostHandler,
             onDeletePost: deletePostHandler,
-            onChangeCurrPost: changeCurrPostHandler,
-            // onFetchPosts: fetchPostsHandler
+            onChangeCurrPost: changeCurrPostHandler
         }}>
             {props.children}
         </PostContext.Provider>

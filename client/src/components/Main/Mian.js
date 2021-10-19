@@ -12,7 +12,7 @@ const Main = (props) => {
     return (
         <main className="col-md-6 col-lg-4">
             {ctx.posts.map(p => {
-                return <Post key={p.id} onViewPost={viewPostHandler} post={p} />
+                return <Post key={p.post_id} onViewPost={viewPostHandler} post={p} />
             })}
         </main>
     )
