@@ -22,10 +22,7 @@ function App() {
       <div className="container-fluid">
         <div className="row">
           <PostsContainer />
-          {currentPost && (
-            <div className='col-md-6 col-lg-8 my-2'>
-              <PostMasterDetails post={currentPost} />
-            </div>)}
+          {currentPost && <PostMasterDetails post={currentPost} />}
         </div>
       </div>
     </>
