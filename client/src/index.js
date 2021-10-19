@@ -3,12 +3,18 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { PostContextProvider } from './context/post-context';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux'
+import store from './store/index';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <PostContextProvider>
-      <App />
-    </PostContextProvider>
+    <Provider store={store}>
+      <PostContextProvider>
+        <App />
+      </PostContextProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

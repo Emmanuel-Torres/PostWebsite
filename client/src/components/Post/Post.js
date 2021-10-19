@@ -1,5 +1,4 @@
 import CustDate from "./CustDate";
-import styles from "./Post.module.css"
 
 const Post = (props) => {
     const viewPostHandler = () => {

@@ -1,6 +1,5 @@
 const { default: axios } = require("axios");
 
-
 const postsUrl = '/api/posts';
 const commentsUrl = '/api/comments';
 
@@ -21,11 +20,11 @@ const addPost = async (post) => {
 };
 
 const updatePost = async (postId, post) => {
-    await axios.put(postUrl + '/' + postId, post)
+    await axios.put(postsUrl + '/' + postId, post)
 };
 
 const deletePost = async (postId) => {
-    await axios.delete(postUrl + '/' + postId);
+    await axios.delete(postsUrl + '/' + postId);
 };
 
 const getCommentByPostId = async (postId) => {
