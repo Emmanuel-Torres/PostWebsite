@@ -31,6 +31,14 @@ const PostForm = (props) => {
 
     const contentChangedHandler = (event) => {
         setContent(event.target.value);
+    };
+
+    const clearForm = () => {
+        setTitle('');
+        setContent('');
+        setAuthor('');
+        setIstTitleTouched(false);
+        setIsAuthorTouched(false);
     }
 
     const submitFormHandler = (event) => {
@@ -44,6 +52,7 @@ const PostForm = (props) => {
                 author,
                 content
             })
+            clearForm();
         }
     };
 
@@ -53,12 +62,12 @@ const PostForm = (props) => {
     return (
         <form className='' onSubmit={submitFormHandler}>
             <div className="form-floating mb-3">
-                <input className={titleClasses} type='text' name='title' id="title" value={title} placeholder="Sample Title" onChange={titleChangedHandler} onBlur={() => {setIstTitleTouched(true)}}/>
+                <input className={titleClasses} type='text' name='title' id="title" value={title} placeholder="Sample Title" onChange={titleChangedHandler} onBlur={() => { setIstTitleTouched(true) }} />
                 <label className='form-label' htmlFor="title">Title</label>
                 {isTitleFieldInvalid && <p className="text-danger">Title cannot be empty</p>}
             </div>
             <div className='form-floating mb-3'>
-                <input className={authorClasses} type='text' name='author' id="author" value={author} placeholder="Sample author" onChange={authorChangedHandler} onBlur={() => {setIsAuthorTouched(true)}}/>
+                <input className={authorClasses} type='text' name='author' id="author" value={author} placeholder="Sample author" onChange={authorChangedHandler} onBlur={() => { setIsAuthorTouched(true) }} />
                 <label className='form-label' htmlFor="author">Author</label>
                 {isAuthorFieldInvalid && <p className="text-danger">Author cannot be empty</p>}
             </div>
@@ -67,8 +76,8 @@ const PostForm = (props) => {
                 <label className='form-label' htmlFor='content'>Content</label>
             </div>
 
-            <button className='btn btn-primary mx-2' type='submit'>Submit</button>
-            <button className='btn btn-danger mx-2' type="button" onClick={props.onCancel}>Cancel</button>
+            <button className='btn btn-primary mx-2' type='submit' data-bs-dismiss="modal">Submit</button>
+            <button className='btn btn-danger mx-2' type="button" data-bs-dismiss="modal" onClick={clearForm}>Cancel</button>
         </form>
     );
 };
