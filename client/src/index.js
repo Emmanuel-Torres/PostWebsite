@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { PostContextProvider } from './context/post-context';
 import reportWebVitals from './reportWebVitals';
-import { Provider } from 'react-redux'
 import store from './store/index';
+import { Provider } from 'react-redux'
 import 'bootstrap/scss/bootstrap.scss'
 import '@popperjs/core'
 import 'bootstrap/dist/js/bootstrap.js'
@@ -12,9 +11,7 @@ import 'bootstrap/dist/js/bootstrap.js'
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <PostContextProvider>
-        <App />
-      </PostContextProvider>
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

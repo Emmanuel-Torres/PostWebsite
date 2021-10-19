@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { clearCurrentPost } from '../../store/posts-slice';
+import CommentsContainer from '../Comment/CommentsContainer';
 
 const PostMasterDetails = (props) => {
     const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const PostMasterDetails = (props) => {
             <p>{props.post?.content}</p>
             <p>Posted on: {props.post?.posted_on}</p>
             <button className="btn btn-success" type="button" onClick={props.onEdit}>Edit</button>
+            <CommentsContainer />
         </div>
     )
 };

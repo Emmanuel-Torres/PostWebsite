@@ -27,12 +27,16 @@ const deletePost = async (postId) => {
     await axios.delete(postsUrl + '/' + postId);
 };
 
-const getCommentByPostId = async (postId) => {
-    await axios.get(postsUrl + '/' + postId + '/comments');
+const getCommentsByPostId = async (postId) => {
+    const res = await axios.get(postsUrl + '/' + postId + '/comments');
+    return res.data.map(c => {
+        return { ...c, posted_on: (new Date(c.posted_on)).toLocaleDateString() }
+    })
 };
 
 const getCommentById = async (commentId) => {
-    await axios.get(commentsUrl + '/' + commentId);
+    const res = await axios.get(commentsUrl + '/' + commentId);
+    return { ...res.data, posted_on: (new Date(res.data.posted_on)).toLocaleDateString() }
 };
 
 const addComment = async (comment) => {
@@ -40,7 +44,7 @@ const addComment = async (comment) => {
 };
 
 const updateComment = async (commentId, comment) => {
-    await axios.put(commentsUrl + '/' + commentId, comment);
+    await axios.put(commentsUrl + '/' + commentId, { comment });
 };
 
 const deleteComment = async (commentId) => {
@@ -53,7 +57,7 @@ const apiService = {
     addPost,
     updatePost,
     deletePost,
-    getCommentByPostId,
+    getCommentsByPostId,
     getCommentById,
     addComment,
     updateComment,

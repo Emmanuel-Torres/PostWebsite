@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import apiService from "../services/api-service";
 
-const getCommentsByPostId = createAsyncThunk(
+export const getCommentsByPostId = createAsyncThunk(
     'getCommentsById',
     async (postId, thunkAPI) => {
         return await apiService.getCommentsByPostId(postId);
@@ -11,10 +11,16 @@ const getCommentsByPostId = createAsyncThunk(
 const commentsSlice = createSlice({
     name: 'comments',
     initialState: {
-        comments: []
+        comments: [],
+        currentComment: null
     },
     reducers: {
-
+        setCurrentComment(state, action) {
+            state.currentComment = action.payload;
+        },
+        clearCurrentComment(state, action) {
+            state.currentComment = null;
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(getCommentsByPostId.fulfilled, (state, action) => {
@@ -23,5 +29,5 @@ const commentsSlice = createSlice({
     }
 })
 
-export const commentsActions = commentsSlice.actions;
+export const { setCurrentComment, clearCurrentComment } = commentsSlice.actions;
 export default commentsSlice;
