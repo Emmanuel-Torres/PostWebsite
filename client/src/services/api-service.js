@@ -48,7 +48,7 @@ const deleteComment = async (commentId) => {
     await axios.delete(commentsUrl + '/' + commentId);
 };
 
-module.exports.apiService = {
+const apiService = {
     getPosts,
     getPostById,
     addPost,
@@ -60,3 +60,5 @@ module.exports.apiService = {
     updateComment,
     deleteComment
 }
+
+export default apiService;
