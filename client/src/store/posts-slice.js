@@ -32,6 +32,7 @@ const postsSlice = createSlice({
     },
     reducers: {
         setCurrentPost(state, action) {
+            console.log("here", action.payload);
             state.currentPost = action.payload;
         }
     },

@@ -15,7 +15,6 @@ const initialState = {
     author: '',
     isAuthorValid: false,
     content: '',
-    date: '',
 }
 
 const formReduce = (state, action) => {
@@ -75,7 +74,6 @@ const PostForm = (props) => {
                 title: formState.title,
                 author: formState.author,
                 content: formState.content,
-                date: formState.date
             });
 
             dispatchForm({ type: types.FORM_SUBMITTED });

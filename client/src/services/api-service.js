@@ -6,7 +6,7 @@ const commentsUrl = '/api/comments';
 const getPosts = async () => {
     const res = await axios.get(postsUrl);
     return res.data.map(p => {
-        return { ...p, posted_on: new Date(p.posted_on) }
+        return { ...p, posted_on: (new Date(p.posted_on)).toLocaleDateString() }
     });
 };
 
@@ -16,6 +16,7 @@ const getPostById = async (postId) => {
 };
 
 const addPost = async (post) => {
+    const newPost = {...post, posted_on: new Date}
     await axios.post(postsUrl, post);
 };
 

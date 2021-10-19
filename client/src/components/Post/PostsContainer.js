@@ -1,10 +1,15 @@
-import Post from "../Post/Post"
+import { useDispatch, useSelector } from "react-redux"
+import { setCurrentPost } from "../../store/posts-slice";
+import PostCard from "./PostCard"
 
-const PostsContainer = (props) => {
+const PostsContainer = () => {
+    const posts = useSelector(state => state.posts.posts);
+    const dispatch = useDispatch();
+
     return (
         <main className="col-md-6 col-lg-4">
-            {props.posts.map(p => {
-                return <Post key={p.post_id} post={p} />
+            {posts.map(p => {
+                return <PostCard key={p.post_id} onViewPost={() => dispatch(setCurrentPost(p))} post={p} />
             })}
         </main>
     )

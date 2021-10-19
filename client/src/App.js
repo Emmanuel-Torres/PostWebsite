@@ -7,7 +7,6 @@ import NavBar from './components/NavBar/NavBar';
 import { getPosts } from './store/posts-slice';
 
 function App() {
-  const posts = useSelector((state) => state.posts.posts);
   const dispatch = useDispatch();
 
   const [isAdding, setIsAdding] = useState(false);
@@ -27,7 +26,7 @@ function App() {
       <NavBar onAddPost={toggleAdding} />
       <div className="container-fluid">
         <div className="row">
-          <PostsContainer posts={posts} />
+          <PostsContainer />
           <div className='col-md-6 col-lg-8 my-2'>
             <Aside />
             {isAdding && <AddPost onCancelAddPost={toggleAdding} />}
