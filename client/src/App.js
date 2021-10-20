@@ -22,8 +22,8 @@ function App() {
   }
 
   const updatePostHandler = (post) => {
-    dispatch(updatePost({...post, post_id: currentPost.post_id}))
     toggleEdit(prev => !prev);
+    dispatch(updatePost({...post, post_id: currentPost.post_id}))
   };
 
   const addPostHandler = (post) => {

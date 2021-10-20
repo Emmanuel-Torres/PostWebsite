@@ -58,7 +58,7 @@ const CommentForm = (props) => {
                     </div>
                 </div>
             </div>
-            <button>Submit</button>
+            <button className='btn btn-outline-success'>Submit</button>
         </form>
     )
 };

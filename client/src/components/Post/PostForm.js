@@ -45,14 +45,12 @@ const PostForm = (props) => {
         event.preventDefault();
         setIsAuthorTouched(true);
         setIstTitleTouched(true);
-        console.log(isFormValid);
         if (isFormValid) {
             props.onSubmit({
                 title,
                 author,
                 content
             })
-            clearForm();
         }
     };
 
@@ -76,8 +74,8 @@ const PostForm = (props) => {
                 <label className='form-label' htmlFor='content'>Content</label>
             </div>
 
-            <button className='btn btn-primary mx-2' type='submit' data-bs-dismiss="modal">Submit</button>
-            <button className='btn btn-danger mx-2' type="button" data-bs-dismiss="modal" onClick={clearForm}>Cancel</button>
+            <button className='btn btn-primary mx-2' type='submit' >Submit</button>
+            <button className='btn btn-danger mx-2' type="button" onClick={props.onCancel}>Cancel</button>
         </form>
     );
 };
