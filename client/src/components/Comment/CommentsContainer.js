@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCommentsByPostId } from "../../store/comments-slice";
+import { addComment, getCommentsByPostId } from "../../store/comments-slice";
 import Comment from "./Comment";
 import CommentForm from "./CommentForm";
 
@@ -14,13 +14,13 @@ const CommentsContainer = () => {
     }, [dispatch, postId]);
 
     const submitCommentHandler = (comment) => {
-        //dispatch()
+        dispatch(addComment({...comment, post_id: postId}));
     };
 
     return (
         <div className="mt-4">
             <h5>Comments:</h5>
-            <CommentForm />
+            <CommentForm onSubmit={submitCommentHandler}/>
             {comments.map(c => <Comment comment={c} />)}
         </div>
     )

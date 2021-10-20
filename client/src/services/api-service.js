@@ -40,6 +40,7 @@ const getCommentById = async (commentId) => {
 };
 
 const addComment = async (comment) => {
+    console.log('here', comment);
     await axios.post(commentsUrl, { comment: { ...comment, posted_on: new Date() } });
 };
 

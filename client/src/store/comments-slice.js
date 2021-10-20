@@ -10,8 +10,9 @@ export const getCommentsByPostId = createAsyncThunk(
 
 export const addComment = createAsyncThunk(
     'addComment',
-    async (data, thunkAPI) => {
-        
+    async (comment, thunkAPI) => {
+        await apiService.addComment(comment);
+        return await apiService.getCommentsByPostId(comment.post_id);
     }
 )
 
@@ -30,9 +31,13 @@ const commentsSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(getCommentsByPostId.fulfilled, (state, action) => {
-            state.comments = action.payload;
-        })
+        builder
+            .addCase(getCommentsByPostId.fulfilled, (state, action) => {
+                state.comments = action.payload;
+            })
+            .addCase(addComment.fulfilled, (state, action) => {
+                state.comments = action.payload
+            });
     }
 })
 

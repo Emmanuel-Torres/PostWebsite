@@ -14,7 +14,7 @@ const PostDetails = (props) => {
             <p>{props.post?.content}</p>
             <p>Posted on: {props.post?.posted_on}</p>
             <button className="btn btn-success" type="button" onClick={props.onEdit}>Edit</button>
-            <CommentsContainer />
+            <CommentsContainer key={`comments-p${props.post?.post_id}`}/>
         </div>
     )
 };

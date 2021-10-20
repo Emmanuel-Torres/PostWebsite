@@ -44,10 +44,10 @@ module.exports.getCommentsByPost = async (postId) => {
     return (await pool.query('SELECT * FROM comment WHERE post_id = $1', [postId])).rows;
 }
 
-module.exports.addComment = async (postId, comment) => {
+module.exports.addComment = async (comment) => {
     await pool.query(`INSERT INTO comment (post_id, content, author, posted_on)
                       VALUES($1, $2, $3, $4)`,
-                      [postId, comment.content, comment.author, comment.posted_on]);
+                      [comment.post_id, comment.content, comment.author, comment.posted_on]);
 };
 
 module.exports.updateComment = async (commentId, comment) => {

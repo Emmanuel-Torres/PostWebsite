@@ -66,12 +66,13 @@ app.get('/api/comments', (req, res) => {
 
 app.post('/api/comments', (req, res) => {
     const comment = req.body.comment;
+    console.log(comment);
     try {
         if (comment.content == undefined || comment.content.trim() < 1) {
             res.send(400);
             return;
         }
-        addComment(comment).then(() => res.send(comment)).catch(err => res.send(500));
+        addComment(comment).then(() => res.send(comment)).catch(err => {console.log(err); res.send(500)});
     }
     catch {
         res.send(400);
@@ -82,7 +83,7 @@ app.put('/api/comments/:commentid', (req, res) => {
     const comment = req.body.comment;
     const commentId = req.params.commentid;
     try {
-        if (comment.content == undefined || comment.trim() < 1) {
+        if (comment.content == undefined || comment.contnet.trim() < 1) {
             res.send(400);
             return;
         }
