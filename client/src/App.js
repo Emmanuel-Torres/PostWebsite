@@ -10,6 +10,13 @@ import PostForm from './components/Post/PostForm';
 function App() {
   const dispatch = useDispatch();
   const currentPost = useSelector(state => state.posts.currentPost);
+  const isDarkMode = useSelector(state => state.ui.darkMode);
+
+  console.log(isDarkMode);
+  if (isDarkMode) {
+    console.log("here", isDarkMode);
+    import('bootswatch/dist/darkly/bootstrap.min.css');
+  }
 
   const [isEditing, setIsEdition] = useState(false);
 
